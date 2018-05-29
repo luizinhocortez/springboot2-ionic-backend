@@ -7,7 +7,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.Categoria;
@@ -33,10 +32,11 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria cat) {
-		find(cat.getId());
-		return repo.save(cat);
+		Categoria newObj = find(cat.getId());
+		updateData(newObj,cat);
+		return repo.save(newObj);
 	}
-
+	
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -61,4 +61,7 @@ public class CategoriaService {
 		return new Categoria(dto.getId(), dto.getNome());
 	}
 
+	private void updateData(Categoria newObj, Categoria cat) {
+		newObj.setNome(cat.getNome());
+	}	
 }
