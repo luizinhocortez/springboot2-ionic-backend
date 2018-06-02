@@ -1,6 +1,7 @@
 package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -102,6 +103,14 @@ public class Pedido implements Serializable {
 		this.itens = itens;
 	}
 
+	public Double getValorTotal()
+	{
+		double soma = 0;
+		for (ItemPedido ip: itens) {
+			soma += ip.getSubTotal();
+		}
+		return soma;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
